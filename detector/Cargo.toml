@@ -9,3 +9,10 @@ edition = "2018"
 [dependencies]
 lindera = "0.8.1"
 lindera-core = "0.8.1"
+futures-util = "0.3.17"
+futures-preview = { version = "0.3.0-alpha.17", features = ["io-compat"] }
+futures01 = "0.1.28"
+
+[dependencies.tokio]
+version = "1.12.0"
+features = ["full"]

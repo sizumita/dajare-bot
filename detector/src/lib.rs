@@ -1,7 +1,32 @@
+pub mod rulebase;
 use std::path::Path;
+use std::sync::Arc;
+use futures::lock::Mutex;
 
 use lindera::tokenizer::{Tokenizer, TokenizerConfig};
 use lindera_core::viterbi::Mode;
+
+
+pub struct Dajare {
+
+}
+
+pub struct DajareSearcher {
+    pub(crate) tokenizer: Arc<Mutex<Tokenizer>>
+}
+
+impl DajareSearcher {
+    pub fn new(dic_path: &str) -> Self {
+        let config = TokenizerConfig {
+            dict_path: Some(&Path::new(dic_path)),
+            mode: Mode::Normal,
+            ..TokenizerConfig::default()
+        };
+        return DajareSearcher {
+            tokenizer: Arc::new(Mutex::new(Tokenizer::with_config(config).unwrap()))
+        }
+    }
+}
 
 
 pub fn tokenize(text: &str) -> () {
@@ -17,11 +42,6 @@ pub fn tokenize(text: &str) -> () {
     }
 }
 
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+// pub fn search_dajare(text: &str) -> Vec<Dajare> {
+//     return vec![]
+// }
